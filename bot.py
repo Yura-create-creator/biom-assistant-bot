@@ -27,7 +27,7 @@ def run_dummy_server():
     server = HTTPServer(("", port), DummyHandler)
     server.serve_forever()
 
-# 🔄 Запускаємо dummy-сервер фоном
+# 🔄 Запуск dummy-сервера фоном
 threading.Thread(target=run_dummy_server).start()
 
 # 🔐 Логування
@@ -42,12 +42,12 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 creds_json = os.getenv("GOOGLE_CREDS")
 creds_dict = json.loads(creds_json)
 
-# 🔐 Авторизація Google Sheets з READ-ONLY scopes
+# ✅ Додаємо правильні scopes для Google Sheets
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 google_creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
 client = gspread.authorize(google_creds)
 
-# 🧠 Команда /start
+# 📬 Команда /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "👋 Привіт! Надішли код товару (артикул), і я знайду його у Google Sheets 🔍"
@@ -80,11 +80,11 @@ async def handle_article(update: Update, context: ContextTypes.DEFAULT_TYPE):
         logger.error(f"❗ Помилка при запиті до таблиці: {e}")
         await update.message.reply_text(f"⚠️ Помилка: {e}")
 
-# 🚨 Обробка внутрішніх помилок
+# 🛠 Обробка помилок
 async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
     logger.error(msg="Виникла помилка:", exc_info=context.error)
 
-# 🚀 Запуск бота
+# 🚀 Запуск Telegram‑бота
 if __name__ == '__main__':
     app = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 
