@@ -1,2 +1,68 @@
+# 🔐 Безпека: виключити токени, ключі, облікові дані
 credentials.json
-.env
+credentials.json.txt
+*.key.json
+GOOGLE_CREDS.json
+*.env
+.env.*
+.envrc
+
+# 🗃️ Структура: виключити файли кешу, тимчасові файли
+__pycache__/
+*.py[cod]
+*.log
+*.tmp
+*.bak
+
+# 📦 Віртуальні середовища Python
+venv/
+.venv/
+env/
+ENV/
+
+# 📂 IDE специфікації (VSCode, PyCharm тощо)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 🏗️ Системні файли Windows/macOS/Linux
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# 🔄 Git файли від перезапису історії
+.git/
+.gitignore
+
+# 🧪 Тестові дані
+tests/
+test_*.py
+*.test.py
+*.spec.py
+
+# 🪶 Markdown drafts або приватні документації
+*.md~
+drafts/
+notes.txt
+
+# 📤 Не пушити файли деплоя або CI/CD
+*.yaml
+*.yml
+*.sh
+deploy/
+build/
+dist/
+
+# 📦 Zip архіви або експорти
+*.zip
+*.tar.gz
+*.rar
+
+# 📷 Картинки/медіа, що не потрібні в репозиторії
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
