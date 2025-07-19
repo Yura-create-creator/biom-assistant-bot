@@ -14,7 +14,7 @@ from telegram.ext import (
 from google.oauth2.service_account import Credentials
 import gspread
 
-# --- Dummy сервер для Render (імітація порту)
+# --- Dummy сервер для Render
 class DummyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
@@ -42,18 +42,18 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 creds_json = os.getenv("GOOGLE_CREDS")
 creds_dict = json.loads(creds_json)
 
-# 🔐 Google Sheets авторизація з scopes
+# 🔐 Авторизація Google Sheets з READ-ONLY scopes
 scopes = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 google_creds = Credentials.from_service_account_info(creds_dict, scopes=scopes)
 client = gspread.authorize(google_creds)
 
-# 🧠 Обробник /start
+# 🧠 Команда /start
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "👋 Привіт! Надішли код товару (артикул), і я знайду його у Google Sheets 🔍"
     )
 
-# 🔍 Обробник артикула
+# 🔍 Обробка артикула
 async def handle_article(update: Update, context: ContextTypes.DEFAULT_TYPE):
     code = update.message.text.strip()
 
@@ -80,7 +80,7 @@ async def handle_article(update: Update, context: ContextTypes.DEFAULT_TYPE):
         logger.error(f"❗ Помилка при запиті до таблиці: {e}")
         await update.message.reply_text(f"⚠️ Помилка: {e}")
 
-# 🚨 Обробник помилок
+# 🚨 Обробка внутрішніх помилок
 async def error_handler(update: object, context: ContextTypes.DEFAULT_TYPE):
     logger.error(msg="Виникла помилка:", exc_info=context.error)
 
